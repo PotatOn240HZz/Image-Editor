@@ -4,11 +4,11 @@ This project was a personal project that was made in the third year of my bachel
 
 In which, I decided to make a website that modifies and exports the result image. Also, it will contain the following features:
 
- - Changing Opacity
- - Fliping Image
+ - Rotating An Image
+ - Fliping An Image Vertically Or Horizontally
  - Modifying Width And Height Attributes
- - Applying Filters
+ - Applying Different Filters
 
 Attacehed you will find the initial frontend of the website:
 
-![Design.png](Images/Design.png)
+![ImageEditor.png](Images/ImageEditor.png)

@@ -1,0 +1,90 @@
+<html>
+
+<head>
+  <title>Image Editor</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image.png" href="Images/Icon">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <div class=e2_5><span class="e2_6">Image Editor</span>
+    <div class=e2_7>
+      <div class="e6_39"></div>
+      <div class="e6_38"></div>
+    </div>
+  </div>
+  </div>
+  <div class=e6_15>
+    <div class=e6_46><span class="e6_40">Drag Your Image Here</span></div>
+    <div class=e10_4>
+      <div class=e10_5><span class="e10_2">Tools</span></div>
+      <div class=e6_41><span class="e6_42">Upload Image</span></div>
+      <div class="rotateAndFlip">
+        <span>Rotate And Flip</span>
+        <div class="rotateAndFlip_C">
+          <div class=flip-h></div>
+          <div class=flip-v></div>
+          <div class=rotate-r></div>
+          <div class=rotate></div>
+        </div>
+      </div>
+      <div class="filters_C">
+        <span>Filters:</span>
+        <div>
+          <Input class="range" type="range" name "" value="0" min="0" max="100"
+            oninput="rangeSlide1(this.value)"></Input>
+          <span id="rangeValue1">0</span>
+          <span style="padding-left: 85px;">Grayscale</span>
+        </div>
+        <div>
+          <Input class="range" type="range" name "" value="0" min="0" max="100"
+            oninput="rangeSlide2(this.value)"></Input>
+          <span id="rangeValue2">0</span>
+          <span style="padding-left: 99.25px;">Sepia</span>
+        </div>
+        <div>
+          <Input class="range" type="range" name "" value="0" min="0" max="1"
+            oninput="rangeSlide3(this.value)"></Input>
+          <span id="rangeValue3">0</span>
+          <span style="padding-left: 97.9px;">Invert</span>
+        </div>
+        <div>
+          <Input class="range" type="range" name "" value="0" min="-100" max="100"
+            oninput="rangeSlide4(this.value)"></Input>
+          <span id="rangeValue4">0</span>
+          <span style="padding-left: 82.75px;">Brightness</span>
+        </div>
+        <div>
+          <Input class="range" type="range" name "" value="0" min="-100" max="100"
+            oninput="rangeSlide5(this.value)"></Input>
+          <span id="rangeValue5">0</span>
+          <span style="padding-left: 89.375px;">Contrast</span>
+        </div>
+      </div>
+      <div class=e6_27><span class="e6_28">Download The Result Image</span></div>
+      <div class=e33_4>
+        <span>Resize</span>
+        <div class="WH-C">
+          <div class="e8_11">
+            <textarea placeholder="px"></textarea>
+          </div>
+          <div class="e8_13">
+            <textarea placeholder="px"></textarea>
+          </div>
+        </div>
+        <span style="margin-left:48.7px">Width</span>
+        <span style="margin-left:104.14px">Height</span>
+      </div>
+
+    </div>
+  </div>
+  <!-- <button id="download">Download Canvas</button>
+  <canvas id="canvas"></canvas>
+  <script src="script.js"></script> -->
+</body>
+
+</html>
+
+<!-- https://codepen.io/smpnjn/pen/mdpEWEN -->
