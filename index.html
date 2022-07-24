@@ -28,16 +28,14 @@
     </div>
     <div class=e10_4>
       <div class=e10_5><span class="e10_2">Tools</span></div>
-      <label class="e6_41" for="uploadFile">
-        Upload Image
-      </label>
+      <label class="e6_41" for="uploadFile"> Upload Image </label>
       <div class="rotateAndFlip">
         <span>Rotate And Flip</span>
         <div class="rotateAndFlip_C">
-          <div class=flip-h></div>
-          <div class=flip-v></div>
-          <div class=rotate-r></div>
-          <div class=rotate></div>
+          <div class=rotate id="rotate" onclick="f_rotate()"></div>
+          <div class=rotate-r id="rotate-r" onclick="f_rotate_r()"></div>
+          <div class=flip-h id="flip-h" onclick="f_flip_h()"></div>
+          <div class=flip-v id="flip-v" onclick="f_flip_v()"></div>
         </div>
       </div>
       <div class="filters_C">

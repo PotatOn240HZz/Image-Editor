@@ -62,7 +62,7 @@ body {
 }
 
 .e6_46 {
-	background-color: rgba(234.81250405311584, 234.81250405311584, 234.81250405311584, 1);
+	background-color: rgba(234.81250405311584, 234.81250405311584, 234.81250405311584);
 	width: 1530px;
 	height: 746px;
 	position: absolute;
@@ -71,6 +71,9 @@ body {
 	border-top-right-radius: 69px;
 	border-bottom-left-radius: 69px;
 	border-bottom-right-radius: 69px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .e6_40 {
@@ -202,11 +205,11 @@ body {
 	left: 234.25px;
 }
 
-.filters_C{
+.filters_C {
 	position: relative;
 	margin-left: 19px;
 	margin-right: 19px;
-	top:230px;
+	top: 230px;
 }
 
 
@@ -310,7 +313,11 @@ button:hover {
 }
 
 /* Range Button -------------------------------------------------- */
-#rangeValue1, #rangeValue2, #rangeValue3, #rangeValue4, #rangeValue5 {
+#rangeValue1,
+#rangeValue2,
+#rangeValue3,
+#rangeValue4,
+#rangeValue5 {
 	position: relative;
 	font-size: 30px;
 	color: #999;
@@ -339,23 +346,17 @@ button:hover {
 	box-shadow: -407px 0 0 400px #ffffff;
 }
 
-
-
-
-
-
-
 .dragBox {
-	position:absolute;
+	position: absolute;
 	border-top-left-radius: 69px;
 	border-top-right-radius: 69px;
 	border-bottom-left-radius: 69px;
 	border-bottom-right-radius: 69px;
 	position: absolute;
-	left:2px;
-	top:2px;
+	left: 2px;
+	top: 2px;
 	width: 1515px;
-	height:730px;
+	height: 730px;
 	text-align: center;
 	font-weight: bold;
 	font-size: 42px;
@@ -364,28 +365,28 @@ button:hover {
 	border: 5px dashed #ccc;
 	display: inline-block;
 	transition: transform 0.3s;
-	display:block;
 }
 
 input[type="file"] {
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		opacity: 0;
-		top: 0;
-		left: 0;
-		cursor:pointer;
-	}
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+}
+
 .draging {
 	transform: scale(1.1);
 }
 
 img {
-	position:absolute;
-	border-top-left-radius: 69px;
-	border-top-right-radius: 69px;
-	border-bottom-left-radius: 69px;
-	border-bottom-right-radius: 69px;
-	width: 1530px;
-	height:746px;
+	position: relative;
+	min-width: 300px;
+	min-height: 300px;
+	max-width: 1480px;
+	max-height: 700px;
+	margin: auto;
+	display: block;
 }
