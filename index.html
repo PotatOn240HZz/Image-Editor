@@ -1,6 +1,7 @@
 <html>
 
 <head>
+  <script src="script.js"></script>
   <title>Image Editor</title>
   <meta charset="utf-8">
   <link rel="icon" type="image.png" href="Images/Icon">
@@ -17,10 +18,19 @@
   </div>
   </div>
   <div class=e6_15>
-    <div class=e6_46><span class="e6_40">Drag Your Image Here</span></div>
+    <div class=e6_46>
+      <span class="dragBox" id="dragBox">
+        <span>Drag and Drop Image here</span>
+        <input type="file" accept="image/*" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()"
+          id="uploadFile">
+      </span>
+      <div id="preview"></div>
+    </div>
     <div class=e10_4>
       <div class=e10_5><span class="e10_2">Tools</span></div>
-      <div class=e6_41><span class="e6_42">Upload Image</span></div>
+      <label class="e6_41" for="uploadFile">
+        Upload Image
+      </label>
       <div class="rotateAndFlip">
         <span>Rotate And Flip</span>
         <div class="rotateAndFlip_C">
@@ -45,8 +55,7 @@
           <span style="padding-left: 99.25px;">Sepia</span>
         </div>
         <div>
-          <Input class="range" type="range" name "" value="0" min="0" max="1"
-            oninput="rangeSlide3(this.value)"></Input>
+          <Input class="range" type="range" name "" value="0" min="0" max="1" oninput="rangeSlide3(this.value)"></Input>
           <span id="rangeValue3">0</span>
           <span style="padding-left: 97.9px;">Invert</span>
         </div>
@@ -68,10 +77,10 @@
         <span>Resize</span>
         <div class="WH-C">
           <div class="e8_11">
-            <textarea placeholder="px"></textarea>
+            <textarea placeholder="px" maxlength="4"></textarea>
           </div>
           <div class="e8_13">
-            <textarea placeholder="px"></textarea>
+            <textarea placeholder="px" maxlength="4"></textarea>
           </div>
         </div>
         <span style="margin-left:48.7px">Width</span>
@@ -79,8 +88,7 @@
       </div>
 
     </div>
-  </div>
-  <!-- <button id="download">Download Canvas</button>
+    <!-- <button id="download">Download Canvas</button>
   <canvas id="canvas"></canvas>
   <script src="script.js"></script> -->
 </body>
