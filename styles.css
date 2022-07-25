@@ -312,6 +312,9 @@ button:hover {
 	transform: scale(1.05);
 }
 
+
+
+
 /* Range Button -------------------------------------------------- */
 #rangeValue1,
 #rangeValue2,
@@ -383,8 +386,6 @@ input[type="file"] {
 
 img {
 	position: relative;
-	min-width: 300px;
-	min-height: 300px;
 	max-width: 1480px;
 	max-height: 700px;
 	margin: auto;

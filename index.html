@@ -12,8 +12,8 @@
 <body>
   <div class=e2_5><span class="e2_6">Image Editor</span>
     <div class=e2_7>
-      <div class="e6_39"></div>
-      <div class="e6_38"></div>
+      <a href="https://www.linkedin.com/in/yousefshaban/" target="_blank" rel="noopener noreferrer"><div class="e6_39"></div></a>
+      <a href="https://github.com/PotatOn240HZz" target="_blank" rel="noopener noreferrer"><div class="e6_38"></div></a>
     </div>
   </div>
   </div>
@@ -21,8 +21,7 @@
     <div class=e6_46>
       <span class="dragBox" id="dragBox">
         <span>Drag and Drop Image here</span>
-        <input type="file" accept="image/*" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()"
-          id="uploadFile">
+        <input type="file" accept="image/*" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()" id="uploadFile">
       </span>
       <div id="preview"></div>
     </div>
@@ -75,10 +74,10 @@
         <span>Resize</span>
         <div class="WH-C">
           <div class="e8_11">
-            <textarea placeholder="px" maxlength="4"></textarea>
+            <textarea id="width" placeholder="px" maxlength="4" oninput="widthChange(this.value)"></textarea>
           </div>
           <div class="e8_13">
-            <textarea placeholder="px" maxlength="4"></textarea>
+            <textarea id="height" placeholder="px" maxlength="4" oninput="heightChange(this.value)"></textarea>
           </div>
         </div>
         <span style="margin-left:48.7px">Width</span>
