@@ -94,16 +94,17 @@ function dragNdrop(event) {
 	var preview = document.getElementById('preview');
 	var previewImg = document.createElement("img");
 	previewImg.setAttribute("src", filename);
+	previewImg.setAttribute("id", "image1");
 	preview.innerHTML = "";
 	preview.appendChild(previewImg);
 	document.getElementById('dragBox').style.display = 'none';
 	previewImg.onload = function () {
-		if(previewImg.width <300)
-			previewImg.width=300;
-		if(previewImg.height < 300)
-			previewImg.height=300;
-		tempwidth=previewImg.width;
-		tempheight=previewImg.height;
+		if (previewImg.width < 300)
+			previewImg.width = 300;
+		if (previewImg.height < 300)
+			previewImg.height = 300;
+		tempwidth = previewImg.width;
+		tempheight = previewImg.height;
 	}
 }
 function drag() {
@@ -112,3 +113,30 @@ function drag() {
 function drop() {
 	document.getElementById('uploadFile').parentNode.className = 'dragBox';
 }
+
+
+function canvasf(el) {
+	var canvas = document.getElementById('myCanvas');
+	var ctx = canvas.getContext('2d');
+	var Iwidth = document.getElementById('image1').width;
+	var Iheight = document.getElementById('image1').height;
+	canvas.height=Iheight;
+	canvas.width=Iwidth;
+	console.log(Iheight);
+	console.log(Iwidth);
+	ctx.drawImage(document.getElementById('image1'), 0, 0, Iwidth, Iheight);
+	var dt = canvas.toDataURL('image/jpg');
+	el.href = dt;
+};
+
+	// var canvas = document.getElementById("myCanvas");
+	// var Iwidth=document.getElementById('image1').offsetWidth;
+	// var Iheight=document.getElementById('image1').offsetHeight;
+	// canvas.width = Iwidth;
+	// canvas.height = Iheight;
+	// console.log(canvas.width);
+	// console.log(canvas.height);
+	// canvas.filter="brightness(500%)";
+	// canvas.getContext("2d").drawImage(document.getElementById('image1'), 0, 0, Iwidth, Iheight);
+	// var image = canvas.toDataURL("image/jpg");
+	// el.href = image;
