@@ -9,6 +9,6 @@ In which, I decided to make a website that modifies and exports the result image
  - Modifying Width And Height Attributes
  - Applying Different Filters
 
-Attacehed you will find the initial frontend of the website:
+Attacehed you will find the website:
 
 ![ImageEditor.png](Images/ImageEditor.png)

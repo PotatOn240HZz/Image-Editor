@@ -1,8 +1,8 @@
 var rotate = 0;
 var scaleX = 1;
 var scaleY = 1;
-var tempwidth = 0;
-var tempheight = 0;
+var Iwidth = 0;
+var Iheight = 0;
 function printRF() {
 	document.querySelector("#preview").style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 }
@@ -10,21 +10,25 @@ function f_rotate() {
 	rotate -= 90;
 	if (rotate == -360)
 		rotate = 0;
-	if (rotate == -270 || rotate == -90)
-		document.getElementById("preview").firstElementChild.style.width = "746px";
-	else
-		document.getElementById("preview").firstElementChild.style.width = "" + tempwidth + "px";
+	if (rotate == -270 || rotate == -90) {
+		if (Iwidth >= 746)
+			document.getElementById("preview").firstElementChild.style.width = "746px";
+		else
+			document.getElementById("preview").firstElementChild.style.width = "" + Iwidth + "px";
+	}
 	printRF();
 }
 function f_rotate_r() {
 	rotate += 90;
 	if (rotate == 360)
 		rotate = 0;
-	if (rotate == 270 || rotate == 90)
-		document.getElementById("preview").firstElementChild.style.width = "746px";
-	else
-		document.getElementById("preview").firstElementChild.style.width = "" + tempwidth + "px";
-	console.log(tempheight);
+	if (rotate == 270 || rotate == 90) {
+		if (Iwidth >= 746)
+			document.getElementById("preview").firstElementChild.style.width = "746px";
+		else
+			document.getElementById("preview").firstElementChild.style.width = "" + Iwidth + "px";
+	}
+	console.log(Iheight);
 	printRF();
 }
 function f_flip_h() {
@@ -79,12 +83,12 @@ function rangeSlide5(value) {
 
 function widthChange(value) {
 	if (document.getElementById("width").value.length == 0)
-		document.getElementById("preview").firstElementChild.style.width = "" + tempwidth + "px";
+		document.getElementById("preview").firstElementChild.style.width = "" + Iwidth + "px";
 	document.getElementById("preview").firstElementChild.style.width = "" + value + "px";
 }
 function heightChange(value) {
 	if (document.getElementById("height").value.length == 0)
-		document.getElementById("preview").firstElementChild.style.height = "" + tempheight + "px";
+		document.getElementById("preview").firstElementChild.style.height = "" + Iheight + "px";
 	document.getElementById("preview").firstElementChild.style.height = "" + value + "px";
 }
 
@@ -103,8 +107,8 @@ function dragNdrop(event) {
 			previewImg.width = 300;
 		if (previewImg.height < 300)
 			previewImg.height = 300;
-		tempwidth = previewImg.width;
-		tempheight = previewImg.height;
+		Iwidth = previewImg.width;
+		Iheight = previewImg.height;
 	}
 }
 function drag() {
@@ -118,25 +122,33 @@ function drop() {
 function canvasf(el) {
 	var canvas = document.getElementById('myCanvas');
 	var ctx = canvas.getContext('2d');
-	var Iwidth = document.getElementById('image1').width;
-	var Iheight = document.getElementById('image1').height;
-	canvas.height=Iheight;
-	canvas.width=Iwidth;
-	console.log(Iheight);
-	console.log(Iwidth);
+	canvas.height = Iheight;
+	canvas.width = Iwidth;
+	// style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";	
+	if (rotate == 90 || rotate == -270) {
+		canvas.height = Iwidth;
+		canvas.width = Iheight;
+		ctx.setTransform(
+			0, 1,    // x axis down the screen
+			-1, 0,   // y axis across the screen from right to left
+			Iheight, // x origin is on the right side of the canvas 
+			0        // y origin is at the top
+		);
+	}
+	else if (rotate == 180 || rotate == -180)
+		ctx.setTransform(1, 0, 0, -1, 0, Iheight);
+	else if (rotate == 270 || rotate == -90) {
+		canvas.height = Iwidth;
+		canvas.width = Iheight;
+		ctx.setTransform(
+			0, -1,    // x axis down the screen
+			1, 0,   // y axis across the screen from right to left
+			0, // x origin is on the right side of the canvas 
+			Iwidth        // y origin is at the top
+		);
+	}
+	ctx.filter = "grayscale(" + grayscale + "%) sepia(" + speia + "%) invert(" + invert * 100 + "%) brightness(" + (parseInt(brightness) + 100) + "%) contrast(" + (parseInt(contrast) + 100) + "%)";
 	ctx.drawImage(document.getElementById('image1'), 0, 0, Iwidth, Iheight);
 	var dt = canvas.toDataURL('image/jpg');
 	el.href = dt;
 };
-
-	// var canvas = document.getElementById("myCanvas");
-	// var Iwidth=document.getElementById('image1').offsetWidth;
-	// var Iheight=document.getElementById('image1').offsetHeight;
-	// canvas.width = Iwidth;
-	// canvas.height = Iheight;
-	// console.log(canvas.width);
-	// console.log(canvas.height);
-	// canvas.filter="brightness(500%)";
-	// canvas.getContext("2d").drawImage(document.getElementById('image1'), 0, 0, Iwidth, Iheight);
-	// var image = canvas.toDataURL("image/jpg");
-	// el.href = image;
