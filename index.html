@@ -9,7 +9,7 @@
   <script src="script.js"></script>
 </head>
 
-<body>
+<body  ondragstart="return false;" ondrop="return false;">
   <div class=e2_5><span class="e2_6">Image Editor</span>
     <div class=e2_7>
       <a href="https://www.linkedin.com/in/yousefshaban/" target="_blank" rel="noopener noreferrer">
@@ -74,8 +74,9 @@
           <span style="padding-left: 89.375px;">Contrast</span>
         </div>
       </div>
-      <a id="download" download="EditedImage.jpg" href="" onclick="canvasf(this);"><div
-          class=e6_27><span class="e6_28">Download The Result Image</span></div></a>
+      <a id="download" download="EditedImage.jpg" href="" onclick="canvasf(this);">
+        <div class=e6_27><span class="e6_28">Download The Result Image</span></div>
+      </a>
       <div class=e33_4>
         <span>Resize</span>
         <div class="WH-C">
@@ -93,4 +94,5 @@
     <canvas id="myCanvas" style="display: none">
     </canvas>
 </body>
+
 </html>

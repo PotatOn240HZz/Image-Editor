@@ -3,6 +3,8 @@ var scaleX = 1;
 var scaleY = 1;
 var Iwidth = 0;
 var Iheight = 0;
+var pwidth = 0;
+var pheight = 0;
 function printRF() {
 	document.querySelector("#preview").style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 }
@@ -11,10 +13,10 @@ function f_rotate() {
 	if (rotate == -360)
 		rotate = 0;
 	if (rotate == -270 || rotate == -90) {
-		if (Iwidth >= 746)
+		if (pwidth >= 746)
 			document.getElementById("preview").firstElementChild.style.width = "746px";
 		else
-			document.getElementById("preview").firstElementChild.style.width = "" + Iwidth + "px";
+			document.getElementById("preview").firstElementChild.style.width = "" + pwidth + "px";
 	}
 	printRF();
 }
@@ -23,12 +25,12 @@ function f_rotate_r() {
 	if (rotate == 360)
 		rotate = 0;
 	if (rotate == 270 || rotate == 90) {
-		if (Iwidth >= 746)
+		if (pwidth >= 746)
 			document.getElementById("preview").firstElementChild.style.width = "746px";
 		else
-			document.getElementById("preview").firstElementChild.style.width = "" + Iwidth + "px";
+			document.getElementById("preview").firstElementChild.style.width = "" + pwidth + "px";
 	}
-	console.log(Iheight);
+	console.log(pheight);
 	printRF();
 }
 function f_flip_h() {
@@ -81,15 +83,29 @@ function rangeSlide5(value) {
 	printFF();
 }
 
+
 function widthChange(value) {
-	if (document.getElementById("width").value.length == 0)
+	if (document.getElementById("width").value.length == 0 || document.getElementById("width").value == 0) {
 		document.getElementById("preview").firstElementChild.style.width = "" + Iwidth + "px";
-	document.getElementById("preview").firstElementChild.style.width = "" + value + "px";
+		pwidth = Iwidth;
+		document.getElementById("width").value = pwidth;
+	}
+	else {
+		document.getElementById("preview").firstElementChild.style.width = "" + value + "px";
+		pwidth = value;
+	}
+
 }
 function heightChange(value) {
-	if (document.getElementById("height").value.length == 0)
+	if (document.getElementById("height").value.length == 0 || document.getElementById("height").value == 0) {
 		document.getElementById("preview").firstElementChild.style.height = "" + Iheight + "px";
-	document.getElementById("preview").firstElementChild.style.height = "" + value + "px";
+		pheight = Iheight;
+		document.getElementById("height").value = pheight;
+	}
+	else {
+		document.getElementById("preview").firstElementChild.style.height = "" + value + "px";
+		pheight = value;
+	}
 }
 
 
@@ -109,6 +125,11 @@ function dragNdrop(event) {
 			previewImg.height = 300;
 		Iwidth = previewImg.width;
 		Iheight = previewImg.height;
+		pwidth = Iwidth;
+		pheight = Iheight;
+		document.getElementById("height").value = pheight;
+		document.getElementById("width").value = pwidth;
+
 	}
 }
 function drag() {
@@ -122,33 +143,56 @@ function drop() {
 function canvasf(el) {
 	var canvas = document.getElementById('myCanvas');
 	var ctx = canvas.getContext('2d');
-	canvas.height = Iheight;
-	canvas.width = Iwidth;
+	canvas.height = pheight;
+	canvas.width = pwidth;
 	// style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";	
+	var rwidth = pwidth;
+	var rheight = pheight;
 	if (rotate == 90 || rotate == -270) {
-		canvas.height = Iwidth;
-		canvas.width = Iheight;
+		canvas.height = rwidth;
+		canvas.width = rheight;
 		ctx.setTransform(
 			0, 1,    // x axis down the screen
 			-1, 0,   // y axis across the screen from right to left
-			Iheight, // x origin is on the right side of the canvas 
+			rheight, // x origin is on the right side of the canvas 
 			0        // y origin is at the top
 		);
+		var temp=scaleX;
+		scaleX=scaleY;
+		scaleY=temp;
 	}
-	else if (rotate == 180 || rotate == -180)
-		ctx.setTransform(1, 0, 0, -1, 0, Iheight);
+	else if (rotate == 180 || rotate == -180) {
+		ctx.setTransform(
+			-1, 0,    // x axis down the screen
+			0, -1,   // y axis across the screen from right to left
+			rwidth, // x origin is on the right side of the canvas 
+			rheight        // y origin is at the top
+		);
+		
+	}
 	else if (rotate == 270 || rotate == -90) {
-		canvas.height = Iwidth;
-		canvas.width = Iheight;
+		canvas.height = rwidth;
+		canvas.width = rheight;
 		ctx.setTransform(
 			0, -1,    // x axis down the screen
 			1, 0,   // y axis across the screen from right to left
 			0, // x origin is on the right side of the canvas 
-			Iwidth        // y origin is at the top
+			rwidth        // y origin is at the top
 		);
+		var temp=scaleX;
+		scaleX=scaleY;
+		scaleY=temp;
 	}
+	var flipwidth = 0;
+	var flipheight = 0;
+	if (scaleX == -1)
+		flipwidth = -pwidth;
+	if (scaleY == -1)
+		flipheight = -pheight;
+	ctx.scale(scaleX, scaleY);
+
 	ctx.filter = "grayscale(" + grayscale + "%) sepia(" + speia + "%) invert(" + invert * 100 + "%) brightness(" + (parseInt(brightness) + 100) + "%) contrast(" + (parseInt(contrast) + 100) + "%)";
-	ctx.drawImage(document.getElementById('image1'), 0, 0, Iwidth, Iheight);
+	ctx.drawImage(document.getElementById('image1'), flipwidth, flipheight, rwidth, rheight);
 	var dt = canvas.toDataURL('image/jpg');
 	el.href = dt;
 };
