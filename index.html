@@ -9,7 +9,7 @@
   <script src="script.js"></script>
 </head>
 
-<body  ondragstart="return false;" ondrop="return false;">
+<body ondragstart="return false;" ondrop="return false;">
   <div class=e2_5><span class="e2_6">Image Editor</span>
     <div class=e2_7>
       <a href="https://www.linkedin.com/in/yousefshaban/" target="_blank" rel="noopener noreferrer">
@@ -29,6 +29,11 @@
           id="uploadFile">
       </span>
       <div id="preview"></div>
+      <div id="video-compare-container">
+        <div id="video-clipper">
+          <img id="image-video">
+        </div>
+      </div>
     </div>
     <div class=e10_4>
       <div class=e10_5><span class="e10_2">Tools</span></div>
@@ -78,13 +83,15 @@
         <div class=e6_27><span class="e6_28">Download The Result Image</span></div>
       </a>
       <div class=e33_4>
-        <span>Resize</span>
+        <span>Resize<span style="color:red"> (1530x746)-(300x300)</span></span>
         <div class="WH-C">
           <div class="e8_11">
-            <textarea id="width" placeholder="px" maxlength="4" oninput="widthChange(this.value)"></textarea>
+            <textarea id="width" style="resize:none" placeholder="px" maxlength="4"
+              oninput="widthChange(this.value)"></textarea>
           </div>
           <div class="e8_13">
-            <textarea id="height" placeholder="px" maxlength="4" oninput="heightChange(this.value)"></textarea>
+            <textarea id="height" style="resize:none" placeholder="px" maxlength="4"
+              oninput="heightChange(this.value)"></textarea>
           </div>
         </div>
         <span style="margin-left:48.7px">Width</span>
@@ -93,6 +100,7 @@
     </div>
     <canvas id="myCanvas" style="display: none">
     </canvas>
+  </div>
 </body>
 
 </html>
