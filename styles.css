@@ -361,27 +361,29 @@ img {
 	max-width: 1480px;
 	max-height: 700px;
 	margin: auto;
-	display: block;
-	object-fit: contain;
+	object-fit: fill;
+	height:calc();
+	width: calc();
 }
 
   #video-compare-container {
 	line-height: 0;
-	position: absolute;
-	width: 100%;
+	position: relative;
+	max-width: 1480px;
+	max-height: 700px;
 	margin: auto;
-	display: none;
+	height: calc();
+	width: calc();
   }
   #video-clipper {
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	top: 0; bottom: 0;
-	display: flex;
 	overflow: hidden;
 	margin: auto;
   }
  #image-video {
 	position:absolute;
-	object-fit: contain;
+	object-fit: fill;
 }

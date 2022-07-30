@@ -6,10 +6,10 @@ var Iheight = 0;
 var pwidth = 0;
 var pheight = 0;
 function printRF() {
-	document.querySelector("#preview").style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
+	document.querySelector("#preview").firstElementChild.style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 	document.getElementById('image-video').style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
-	clippedVideo.style.height=pheight;
-	clippedVideo.style.width=pwidth;
+	clippedVideo.height = document.querySelector("#preview").firstElementChild.offsetHeight;
+	clippedVideo.width = document.querySelector("#preview").firstElementChild.offsetWidth;
 	console.log(pheight);
 	console.log(pwidth);
 }
@@ -19,24 +19,26 @@ function f_rotate() {
 		rotate = 0;
 	if (rotate == -270 || rotate == -90 || rotate == 270 || rotate == 90) {
 		if (pwidth >= 700) {
-			pwidth = 700;
-			document.getElementById("preview").firstElementChild.style.width = "700px";
+			pheight = 700;
+			pwidth = document.querySelector("#preview").firstElementChild.offsetWidth;
 			document.getElementById("width").value = pwidth;
-			pheight = document.getElementById("preview").offsetHeight;
-			videoContainer.setAttribute("style", "display:block; width:" + pheight + "px; height : 700px; top:" + ((746 - pwidth) / 2) + "px; left:" + ((1530 - pheight) / 2) + "px;");
+			document.getElementById("height").value = pheight;
+			videoContainer.setAttribute("style", "width:" + pwidth + "px; height : 700px;");
 			console.log("problem1")
 		}
 		else {
-			videoContainer.setAttribute("style", "display:block; width:" + pheight + "px; height : " + pwidth + "px; top:" + ((746 - pwidth) / 2) + "px; left:" + ((1530 - pheight) / 2) + "px;");
+			var temp = pheight;
+			pheight = pwidth;
+			pwidth = temp;
+			videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 			console.log("problem2")
 		}
-		clippedVideo.style.maxWidth = pwidth;
 	}
 	else {
 		pwidth = Iwidth;
 		document.getElementById("preview").firstElementChild.style.width = pwidth;
 		pheight = document.getElementById("preview").offsetHeight;
-		videoContainer.setAttribute("style", "display:block; width:" + pwidth + "px; height : " + pheight + "px; top:" + ((746 - pheight) / 2) + "px; left:" + ((1530 - pwidth) / 2) + "px;");
+		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		clippedVideo.style.maxWidth = 1480;
 		console.log("problem3")
 	}
@@ -52,17 +54,17 @@ function f_rotate_r() {
 			document.getElementById("preview").firstElementChild.style.width = "700px";
 			document.getElementById("width").value = pwidth;
 			clippedVideo.style.maxWidth = pheight;
-			videoContainer.setAttribute("style", "display:block; width:" + pheight + "px; height : 700 px; top:" + ((746 - pwidth) / 2) + "px; left:" + ((1530 - pheight) / 2) + "px;");
+			videoContainer.setAttribute("style", "width:" + pheight + "px; height : 700 px;");
 		}
 		else {
-			videoContainer.setAttribute("style", "display:block; width:" + pheight + "px; height : " + pwidth + "px; top:" + ((746 - pwidth) / 2) + "px; left:" + ((1530 - pheight) / 2) + "px;");
+			videoContainer.setAttribute("style", "width:" + pheight + "px; height : " + pwidth + "px;");
 			clippedVideo.style.maxWidth = pwidth;
 		}
 	}
 	else {
 		pwidth = Iwidth;
 		document.getElementById("preview").firstElementChild.style.width = pwidth;
-		videoContainer.setAttribute("style", "display:block; width:" + pwidth + "px; height : " + pheight + "px; top:" + ((746 - pheight) / 2) + "px; left:" + ((1530 - pwidth) / 2) + "px;");
+		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		clippedVideo.style.maxWidth = 1480;
 	}
 	printRF();
@@ -133,7 +135,8 @@ function widthChange(value) {
 		pwidth = value;
 	document.getElementById("preview").firstElementChild.style.width = "" + pwidth + "px";
 	document.getElementById("preview").firstElementChild.style.height = "" + pheight + "px";
-	videoContainer.setAttribute("style", "display:block; width:" + pwidth + "px; height : " + pheight + "px; top:" + ((746 - pheight) / 2) + "px; left:" + ((1530 - pwidth) / 2) + "px;");
+	videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
+	console.log("!!!!!!!!!!!!!");
 }
 function heightChange(value) {
 	if (document.getElementById("height").value.length == 0 || document.getElementById("height").value == 0)
@@ -150,7 +153,8 @@ function heightChange(value) {
 		pheight = value;
 	document.getElementById("preview").firstElementChild.style.height = "" + pheight + "px";
 	document.getElementById("preview").firstElementChild.style.width = "" + pwidth + "px";
-	videoContainer.setAttribute("style", "display:block; width:" + pwidth + "px; height : " + pheight + "px; top:" + ((746 - pheight) / 2) + "px; left:" + ((1530 - pwidth) / 2) + "px;");
+	videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
+	console.log("!!!!!!!!!!!!!");
 }
 
 
@@ -172,10 +176,16 @@ function dragNdrop(event) {
 			previewImg.width = 300;
 		if (previewImg.height < 300)
 			previewImg.height = 300;
-		Iwidth = previewImg.width;
+		if (previewImg.width > 1480)
+			previewImg.width = 1400;
+		if (previewImg.height > 700)
+			previewImg.height = 700;
+		Iwidth = previewImg.offsetWidth;
 		pwidth = Iwidth;
-		Iheight = previewImg.height;
+		Iheight = previewImg.offsetHeight;
 		pheight = Iheight;
+		document.getElementById("preview").style.width = "" + pwidth + "px";
+		document.getElementById("preview").style.height = "" + pheight + "px";
 		document.getElementById("height").value = pheight;
 		document.getElementById("width").value = pwidth;
 
@@ -183,12 +193,14 @@ function dragNdrop(event) {
 		videoContainer = document.getElementById("video-compare-container"),
 			videoClipper = document.getElementById("video-clipper"),
 			clippedVideo = videoClipper.getElementsByTagName("img")[0];
-		videoContainer.setAttribute("style", "display:block; width:" + pwidth + "px; height : " + pheight + "px; top:" + ((746 - pheight) / 2) + "px; left:" + ((1530 - pwidth) / 2) + "px;");
+		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 
 		videoClipper.getElementsByTagName("img")[0].src = filename;
 		videoContainer.addEventListener("mousemove", trackLocation, false);
 		videoContainer.addEventListener("touchstart", trackLocation, false);
 		videoContainer.addEventListener("touchmove", trackLocation, false);
+		console.log(pheight);
+		console.log(pwidth);
 	}
 }
 function drag() {
@@ -262,22 +274,8 @@ function trackLocation(e) {
 	if (position <= 100) {
 		if (position > 99.6)
 			position = 100;
-		if (rotate == 180 || rotate == -180) {
-			videoClipper.style.width = position + "%";
-			clippedVideo.style.width = ((100 / position) * 100) + "%";
-		}
-		else if (rotate == 0) {
-			videoClipper.style.width = position + "%";
-			clippedVideo.style.width = ((100 / position) * 100) + "%";
-		}
-		else if (rotate == 90 || rotate == -270) {
-			videoClipper.style.width = position + "%";
-			clippedVideo.style.height = ((100 / position) * 100) + "%";
-		}
-		else {
-			videoClipper.style.width = position + "%";
-			clippedVideo.style.height = ((100 / position) * 100) + "%";
-		}
+		videoClipper.style.width = position + "%";
+		clippedVideo.style.width = ((100 / position) * 100) + "%";
 		clippedVideo.style.zIndex = 3;
 	}
 }
