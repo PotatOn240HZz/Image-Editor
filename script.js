@@ -5,69 +5,90 @@ var Iwidth = 0;
 var Iheight = 0;
 var pwidth = 0;
 var pheight = 0;
+
+function reset() {
+	rotate = 0, scaleX = 1, scaleY = 1, Iwidth = 0, Iheight = 0, pwidth = 0, pheight = 0;
+	grayscale = 0, speia = 0, invert = 0, brightness = 0, contrast = 0;
+	document.getElementById('rangeValue1').innerHTML = 0;
+	document.getElementById('rangeValue2').innerHTML = 0;
+	document.getElementById('rangeValue3').innerHTML = 0;
+	document.getElementById('rangeValue4').innerHTML = 0;
+	document.getElementById('rangeValue5').innerHTML = 0;
+	document.getElementById("range1").value = "0";
+	document.getElementById("range2").value = "0";
+	document.getElementById("range3").value = "0";
+	document.getElementById("range4").value = "0";
+	document.getElementById("range5").value = "0";
+	videoContainer.style.width = 0 + "px";
+	videoContainer.style.height = 0 + "px";
+	clippedVideo.style.top = 0 + "px";
+	clippedVideo.style.left = 0 + "px";
+	document.querySelector("#preview").style.top = 0;
+	document.querySelector("#preview").style.left = 0;
+	document.querySelector("#preview").style.filter = "grayscale(" + grayscale + "%) sepia(" + speia + "%) invert(" + invert * 100 + "%) brightness(" + (parseInt(brightness) + 100) + "%) contrast(" + (parseInt(contrast) + 100) + "%)";
+}
 function printRF() {
-	document.querySelector("#preview").firstElementChild.style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
+
+	document.querySelector("#preview").style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
+	videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
+	videoClipper.setAttribute("style", "width: 0px; height : " + pheight + "px;");
 	document.getElementById('image-video').style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
-	clippedVideo.height = document.querySelector("#preview").firstElementChild.offsetHeight;
-	clippedVideo.width = document.querySelector("#preview").firstElementChild.offsetWidth;
+	document.getElementById("width").value = pwidth + "px";
+	document.getElementById("height").value = pheight + "px";
 	console.log(pheight);
 	console.log(pwidth);
 }
-function f_rotate() {
-	rotate -= 90;
-	if (rotate == -360)
-		rotate = 0;
-	if (rotate == -270 || rotate == -90 || rotate == 270 || rotate == 90) {
-		if (pwidth >= 700) {
+function rotateR(rotate) {
+	if (Math.abs(rotate) == 360)
+		this.rotate = 0;
+	if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90) {
+		if (pwidth > 700) {
+			pwidth = 700 * (pheight / pwidth);
 			pheight = 700;
-			pwidth = document.querySelector("#preview").firstElementChild.offsetWidth;
-			document.getElementById("width").value = pwidth;
-			document.getElementById("height").value = pheight;
-			videoContainer.setAttribute("style", "width:" + pwidth + "px; height : 700px;");
-			console.log("problem1")
+			console.log("problem1");
 		}
 		else {
 			var temp = pheight;
 			pheight = pwidth;
 			pwidth = temp;
-			videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
-			console.log("problem2")
+			console.log("problem2");
+			document.getElementById('image-video').style.height = pwidth;
+			document.getElementById('image-video').style.width = pheight;
 		}
 	}
 	else {
-		pwidth = Iwidth;
-		document.getElementById("preview").firstElementChild.style.width = pwidth;
-		pheight = document.getElementById("preview").offsetHeight;
-		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
+		console.log(rotate + "-----");
+		var temp = pheight;
+		pheight = pwidth;
+		pwidth = temp;
 		clippedVideo.style.maxWidth = 1480;
-		console.log("problem3")
+		console.log("problem3");
 	}
 	printRF();
+	var rect1 = videoContainer.getBoundingClientRect();
+	var rect2 = clippedVideo.getBoundingClientRect();
+	var rect3 = document.querySelector("#preview").firstElementChild.getBoundingClientRect();
+	if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90) {
+		document.querySelector("#preview").style.top = (rect1.top - rect3.top) + "px";
+		document.querySelector("#preview").style.left = (rect1.left - rect3.left) + "px";
+		clippedVideo.style.top = (rect1.top - rect2.top) + "px";
+		clippedVideo.style.left = (rect1.left - rect2.left) + "px";
+	}
+	else {
+		document.querySelector("#preview").style.top = 0 + "px";
+		document.querySelector("#preview").style.left = 0 + "px";
+		clippedVideo.style.top = 0 + "px";
+		clippedVideo.style.left = 0 + "px";
+	}
+}
+
+function f_rotate() {
+	rotate -= 90;
+	rotateR(rotate);
 }
 function f_rotate_r() {
 	rotate += 90;
-	if (rotate == 360)
-		rotate = 0;
-	if (rotate == 270 || rotate == 90 || rotate == -270 || rotate == -90) {
-		if (pwidth >= 700) {
-			pwidth = 700;
-			document.getElementById("preview").firstElementChild.style.width = "700px";
-			document.getElementById("width").value = pwidth;
-			clippedVideo.style.maxWidth = pheight;
-			videoContainer.setAttribute("style", "width:" + pheight + "px; height : 700 px;");
-		}
-		else {
-			videoContainer.setAttribute("style", "width:" + pheight + "px; height : " + pwidth + "px;");
-			clippedVideo.style.maxWidth = pwidth;
-		}
-	}
-	else {
-		pwidth = Iwidth;
-		document.getElementById("preview").firstElementChild.style.width = pwidth;
-		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
-		clippedVideo.style.maxWidth = 1480;
-	}
-	printRF();
+	rotateR(rotate);
 }
 function f_flip_h() {
 	if (scaleX == 1)
@@ -124,7 +145,7 @@ function widthChange(value) {
 	if (document.getElementById("width").value.length == 0 || document.getElementById("width").value == 0)
 		pwidth = Iwidth;
 	else if (document.getElementById("width").value > 1480) {
-		if (rotate == 0 || rotate == 180 || rotate == -180)
+		if (rotate == 0 || Math.abs(rotate) == 180)
 			pwidth = 1480;
 		else
 			pwidth = 700;
@@ -136,13 +157,12 @@ function widthChange(value) {
 	document.getElementById("preview").firstElementChild.style.width = "" + pwidth + "px";
 	document.getElementById("preview").firstElementChild.style.height = "" + pheight + "px";
 	videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
-	console.log("!!!!!!!!!!!!!");
 }
 function heightChange(value) {
 	if (document.getElementById("height").value.length == 0 || document.getElementById("height").value == 0)
 		pheight = Iheight;
 	else if (document.getElementById("height").value > 700) {
-		if (rotate == 0 || rotate == 180 || rotate == -180)
+		if (rotate == 0 || Math.abs(rotate) == 180)
 			pheight = 700;
 		else
 			pheight = 1480;
@@ -154,7 +174,6 @@ function heightChange(value) {
 	document.getElementById("preview").firstElementChild.style.height = "" + pheight + "px";
 	document.getElementById("preview").firstElementChild.style.width = "" + pwidth + "px";
 	videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
-	console.log("!!!!!!!!!!!!!");
 }
 
 
@@ -172,6 +191,16 @@ function dragNdrop(event) {
 	preview.appendChild(previewImg);
 	document.getElementById('dragBox').style.display = 'none';
 	previewImg.onload = function () {
+
+		videoContainer = document.getElementById("video-compare-container"),
+			videoClipper = document.getElementById("video-clipper"),
+			clippedVideo = videoClipper.getElementsByTagName("img")[0];
+		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
+		videoClipper.getElementsByTagName("img")[0].src = filename;
+		videoContainer.addEventListener("mousemove", trackLocation, false);
+		videoContainer.addEventListener("touchstart", trackLocation, false);
+		videoContainer.addEventListener("touchmove", trackLocation, false);
+		reset();
 		if (previewImg.width < 300)
 			previewImg.width = 300;
 		if (previewImg.height < 300)
@@ -186,19 +215,20 @@ function dragNdrop(event) {
 		pheight = Iheight;
 		document.getElementById("preview").style.width = "" + pwidth + "px";
 		document.getElementById("preview").style.height = "" + pheight + "px";
+		document.getElementById("image1").style.width = "" + pwidth + "px";
+		document.getElementById("image1").style.height = "" + pheight + "px";
+		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
+		videoClipper.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
+		clippedVideo.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		document.getElementById("height").value = pheight;
 		document.getElementById("width").value = pwidth;
-
-
-		videoContainer = document.getElementById("video-compare-container"),
-			videoClipper = document.getElementById("video-clipper"),
-			clippedVideo = videoClipper.getElementsByTagName("img")[0];
-		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
-
-		videoClipper.getElementsByTagName("img")[0].src = filename;
-		videoContainer.addEventListener("mousemove", trackLocation, false);
-		videoContainer.addEventListener("touchstart", trackLocation, false);
-		videoContainer.addEventListener("touchmove", trackLocation, false);
+		var rect1 = videoContainer.getBoundingClientRect();
+		var rect2 = clippedVideo.getBoundingClientRect();
+		var rect3 = document.querySelector("#preview").firstElementChild.getBoundingClientRect();
+		document.querySelector("#preview").style.top = (rect1.top - rect3.top) + "px";
+		document.querySelector("#preview").style.left = (rect1.left - rect3.left) + "px";
+		clippedVideo.style.top = (rect1.top - rect2.top) + "px";
+		clippedVideo.style.left = (rect1.left - rect2.left) + "px";
 		console.log(pheight);
 		console.log(pwidth);
 	}
@@ -206,6 +236,7 @@ function dragNdrop(event) {
 function drag() {
 	document.getElementById('uploadFile').parentNode.className = "draging dragBox";
 }
+
 function drop() {
 	document.getElementById('uploadFile').parentNode.className = 'dragBox';
 }
@@ -275,7 +306,15 @@ function trackLocation(e) {
 		if (position > 99.6)
 			position = 100;
 		videoClipper.style.width = position + "%";
-		clippedVideo.style.width = ((100 / position) * 100) + "%";
+		var ratio = 1;
+		if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90)
+			ratio = pwidth / pheight;
+		clippedVideo.style.width = ((100 / position) * 100 / ratio) + "%";
 		clippedVideo.style.zIndex = 3;
 	}
+}
+
+function leaveLocation(e) {
+	videoClipper.style.width = "0px";
+	console.log("asdasd");
 }

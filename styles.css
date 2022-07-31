@@ -340,6 +340,7 @@ body {
 	border: 5px dashed #ccc;
 	display: inline-block;
 	transition: transform 0.3s;
+	display: block;
 }
 
 input[type="file"] {
@@ -357,33 +358,31 @@ input[type="file"] {
 }
 
 img {
-	position: relative;
+	position:absolute;
 	max-width: 1480px;
 	max-height: 700px;
-	margin: auto;
 	object-fit: fill;
-	height:calc();
-	width: calc();
+	top: 0px;
+	left: 0px;
 }
 
-  #video-compare-container {
+#video-compare-container {
 	line-height: 0;
 	position: relative;
 	max-width: 1480px;
 	max-height: 700px;
 	margin: auto;
-	height: calc();
-	width: calc();
-  }
-  #video-clipper {
-	width: 100%;
-	height: 100%;
+}
+
+#video-clipper {
 	position: absolute;
-	top: 0; bottom: 0;
+	top: 0;
+	bottom: 0;
 	overflow: hidden;
 	margin: auto;
-  }
- #image-video {
-	position:absolute;
+}
+
+#image-video {
+	position: absolute;
 	object-fit: fill;
 }
