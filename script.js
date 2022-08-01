@@ -26,15 +26,23 @@ function reset() {
 	document.querySelector("#preview").style.top = 0;
 	document.querySelector("#preview").style.left = 0;
 	document.querySelector("#preview").style.filter = "grayscale(" + grayscale + "%) sepia(" + speia + "%) invert(" + invert * 100 + "%) brightness(" + (parseInt(brightness) + 100) + "%) contrast(" + (parseInt(contrast) + 100) + "%)";
+	document.querySelector("#preview").style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 }
 function printRF() {
 
-	document.querySelector("#preview").style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
+	document.querySelector("#preview").firstElementChild.style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
+	document.getElementById('image-video').style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 	videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 	videoClipper.setAttribute("style", "width: 0px; height : " + pheight + "px;");
-	document.getElementById('image-video').style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
-	document.getElementById("width").value = pwidth + "px";
-	document.getElementById("height").value = pheight + "px";
+	var first2Str, first2Num;
+	first2Str = String(pwidth).slice(0, 4);
+	if (pwidth < 1000)
+		first2Str = String(pwidth).slice(0, 3);
+	first2Num = Number(first2Str);
+	document.getElementById("width").value = first2Str;
+	first2Str = String(pheight).slice(0, 3);
+	first2Num = Number(first2Str);
+	document.getElementById("height").value = first2Str;
 	console.log(pheight);
 	console.log(pwidth);
 }
@@ -52,16 +60,19 @@ function rotateR(rotate) {
 			pheight = pwidth;
 			pwidth = temp;
 			console.log("problem2");
-			document.getElementById('image-video').style.height = pwidth;
-			document.getElementById('image-video').style.width = pheight;
 		}
+		document.getElementById('image-video').style.height = pwidth;
+		document.getElementById('image-video').style.width = pheight;
+		document.getElementById('image1').style.height = pwidth;
+		document.getElementById('image1').style.width = pheight;
 	}
 	else {
-		console.log(rotate + "-----");
-		var temp = pheight;
-		pheight = pwidth;
-		pwidth = temp;
-		clippedVideo.style.maxWidth = 1480;
+		pheight = Iheight;
+		pwidth = Iwidth;
+		document.getElementById('image-video').style.height = pheight;
+		document.getElementById('image-video').style.width = pwidth;
+		document.getElementById('image1').style.height = pheight;
+		document.getElementById('image1').style.width = pwidth;
 		console.log("problem3");
 	}
 	printRF();
@@ -95,14 +106,16 @@ function f_flip_h() {
 		scaleX = -1;
 	else
 		scaleX = 1;
-	printRF();
+	document.querySelector("#preview").firstElementChild.style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
+	document.getElementById('image-video').style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 }
 function f_flip_v() {
 	if (scaleY == 1)
 		scaleY = -1;
 	else
 		scaleY = 1;
-	printRF();
+	document.querySelector("#preview").firstElementChild.style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
+	document.getElementById('image-video').style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 }
 
 
@@ -215,10 +228,9 @@ function dragNdrop(event) {
 		pheight = Iheight;
 		document.getElementById("preview").style.width = "" + pwidth + "px";
 		document.getElementById("preview").style.height = "" + pheight + "px";
-		document.getElementById("image1").style.width = "" + pwidth + "px";
-		document.getElementById("image1").style.height = "" + pheight + "px";
 		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		videoClipper.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
+		clippedVideo.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		clippedVideo.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		document.getElementById("height").value = pheight;
 		document.getElementById("width").value = pwidth;
@@ -245,17 +257,17 @@ function drop() {
 function canvasf(el) {
 	var canvas = document.getElementById('myCanvas');
 	var ctx = canvas.getContext('2d');
+	var cwidth = pwidth;
+	var cheight = pheight;
 	canvas.height = pheight;
 	canvas.width = pwidth;
-	var rwidth = pwidth;
-	var rheight = pheight;
 	if (rotate == 90 || rotate == -270) {
-		canvas.height = rwidth;
-		canvas.width = rheight;
+		canvas.height = cheight;
+		canvas.width = cwidth;
 		ctx.setTransform(
 			0, 1,    // x axis down the screen
 			-1, 0,   // y axis across the screen from right to left
-			rheight, // x origin is on the right side of the canvas 
+			cwidth, // x origin is on the right side of the canvas 
 			0        // y origin is at the top
 		);
 		var temp = scaleX;
@@ -266,19 +278,17 @@ function canvasf(el) {
 		ctx.setTransform(
 			-1, 0,    // x axis down the screen
 			0, -1,   // y axis across the screen from right to left
-			rwidth, // x origin is on the right side of the canvas 
-			rheight        // y origin is at the top
+			cwidth, // x origin is on the right side of the canvas 
+			cheight        // y origin is at the top
 		);
 
 	}
 	else if (rotate == 270 || rotate == -90) {
-		canvas.height = rwidth;
-		canvas.width = rheight;
 		ctx.setTransform(
 			0, -1,    // x axis down the screen
 			1, 0,   // y axis across the screen from right to left
-			0, // x origin is on the right side of the canvas 
-			rwidth        // y origin is at the top
+			0, // x origin is on the right side of the canvas
+			cheight       // y origin is at the top
 		);
 		var temp = scaleX;
 		scaleX = scaleY;
@@ -293,7 +303,10 @@ function canvasf(el) {
 	ctx.scale(scaleX, scaleY);
 
 	ctx.filter = "grayscale(" + grayscale + "%) sepia(" + speia + "%) invert(" + invert * 100 + "%) brightness(" + (parseInt(brightness) + 100) + "%) contrast(" + (parseInt(contrast) + 100) + "%)";
-	ctx.drawImage(document.getElementById('image1'), flipwidth, flipheight, rwidth, rheight);
+	if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90)
+		ctx.drawImage(document.getElementById('image1'), flipheight, flipwidth, pheight, pwidth);
+	else
+		ctx.drawImage(document.getElementById('image1'), flipwidth, flipheight, pwidth, pheight);
 	var dt = canvas.toDataURL('image/jpg');
 	el.href = dt;
 };

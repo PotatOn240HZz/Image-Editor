@@ -1,6 +1,13 @@
+html,
 body {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
 	background-image: url(Images/Background.png);
 	background-size: cover;
+	overflow: hidden;
 }
 
 .e2_5 {
@@ -358,7 +365,7 @@ input[type="file"] {
 }
 
 img {
-	position:absolute;
+	position: absolute;
 	max-width: 1480px;
 	max-height: 700px;
 	object-fit: fill;
