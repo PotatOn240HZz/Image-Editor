@@ -106,6 +106,7 @@ function f_flip_h() {
 		scaleX = -1;
 	else
 		scaleX = 1;
+	console.log(scaleX + "," + scaleY);
 	document.querySelector("#preview").firstElementChild.style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 	document.getElementById('image-video').style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 }
@@ -114,6 +115,7 @@ function f_flip_v() {
 		scaleY = -1;
 	else
 		scaleY = 1;
+	console.log(scaleX + "," + scaleY);
 	document.querySelector("#preview").firstElementChild.style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 	document.getElementById('image-video').style.transform = "scale(" + scaleX + "," + scaleY + ") rotate(" + (rotate) + "deg)";
 }
@@ -262,17 +264,12 @@ function canvasf(el) {
 	canvas.height = pheight;
 	canvas.width = pwidth;
 	if (rotate == 90 || rotate == -270) {
-		canvas.height = cheight;
-		canvas.width = cwidth;
 		ctx.setTransform(
 			0, 1,    // x axis down the screen
 			-1, 0,   // y axis across the screen from right to left
 			cwidth, // x origin is on the right side of the canvas 
 			0        // y origin is at the top
 		);
-		var temp = scaleX;
-		scaleX = scaleY;
-		scaleY = temp;
 	}
 	else if (rotate == 180 || rotate == -180) {
 		ctx.setTransform(
@@ -281,7 +278,6 @@ function canvasf(el) {
 			cwidth, // x origin is on the right side of the canvas 
 			cheight        // y origin is at the top
 		);
-
 	}
 	else if (rotate == 270 || rotate == -90) {
 		ctx.setTransform(
@@ -290,23 +286,22 @@ function canvasf(el) {
 			0, // x origin is on the right side of the canvas
 			cheight       // y origin is at the top
 		);
-		var temp = scaleX;
-		scaleX = scaleY;
-		scaleY = temp;
 	}
 	var flipwidth = 0;
 	var flipheight = 0;
 	if (scaleX == -1)
-		flipwidth = -pwidth;
+		flipwidth = -cwidth;
 	if (scaleY == -1)
-		flipheight = -pheight;
-	ctx.scale(scaleX, scaleY);
-
+		flipheight = -cheight;
 	ctx.filter = "grayscale(" + grayscale + "%) sepia(" + speia + "%) invert(" + invert * 100 + "%) brightness(" + (parseInt(brightness) + 100) + "%) contrast(" + (parseInt(contrast) + 100) + "%)";
-	if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90)
-		ctx.drawImage(document.getElementById('image1'), flipheight, flipwidth, pheight, pwidth);
-	else
-		ctx.drawImage(document.getElementById('image1'), flipwidth, flipheight, pwidth, pheight);
+	if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90) {
+		ctx.scale(scaleY, scaleX);
+		ctx.drawImage(document.getElementById('image1'), flipheight, flipwidth, cheight, cwidth);
+	}
+	else {
+		ctx.scale(scaleX, scaleY);
+		ctx.drawImage(document.getElementById('image1'), flipwidth, flipheight, cwidth, cheight);
+	}
 	var dt = canvas.toDataURL('image/jpg');
 	el.href = dt;
 };
