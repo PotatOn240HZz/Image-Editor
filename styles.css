@@ -10,6 +10,8 @@ body {
 	overflow: hidden;
 }
 
+/*--------------------------------------------------  Figma auto generated styles -------------------------------------------------- */
+
 .e2_5 {
 	width: 1920px;
 	height: 190px;
@@ -47,6 +49,7 @@ body {
 	background-image: url(Images/Linkedin.png);
 	background-repeat: no-repeat;
 	background-size: cover;
+	border-radius: 10px;
 }
 
 .e6_38 {
@@ -58,6 +61,7 @@ body {
 	background-image: url(Images/Github.png);
 	background-repeat: no-repeat;
 	background-size: cover;
+	border-radius: 42px;
 }
 
 .e6_15 {
@@ -159,6 +163,82 @@ body {
 	cursor: pointer;
 }
 
+.e33_4 {
+	position: absolute;
+	height: 80px;
+	margin-left: 19px;
+	margin-right: 19px;
+	top: 540px;
+}
+
+.e33_4 textarea {
+	width: 131px;
+	height: 36px;
+	border: none;
+	overflow: auto;
+	outline: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	background-color: transparent;
+	resize: none;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+}
+
+.e8_11 {
+	background-color: rgba(34.00000177323818, 34.00000177323818, 34.00000177323818, 1);
+	width: 131px;
+	height: 30px;
+	position: absolute;
+	border-radius: 30px;
+	border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.e8_13 {
+	background-color: rgba(34.00000177323818, 34.00000177323818, 34.00000177323818, 1);
+	width: 131px;
+	height: 30px;
+	left: 150px;
+	position: absolute;
+	border-radius: 30px;
+	border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.e6_27 {
+	background-color: rgb(173 173 173);
+	width: 287px;
+	height: 79px;
+	position: absolute;
+	left: 19px;
+	top: 635px;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+}
+
+.e6_28 {
+	color: rgba(0, 0, 0, 1);
+	width: 171px;
+	height: 56px;
+	position: absolute;
+	left: 58px;
+	top: 11.5px;
+	font-family: Arial;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+/*--------------------------------------------------  End of Figma auto generated styles -------------------------------------------------- */
+
+.WH-C {
+	width: 287px;
+	height: 36px;
+}
+
 .rotateAndFlip {
 	position: absolute;
 	top: 150px;
@@ -220,81 +300,8 @@ body {
 }
 
 
-.e33_4 {
-	position: absolute;
-	height: 80px;
-	margin-left: 19px;
-	margin-right: 19px;
-	top: 540px;
-}
 
-.e33_4 textarea {
-	width: 131px;
-	height: 36px;
-	border: none;
-	overflow: auto;
-	outline: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	background-color: transparent;
-	resize: none;
-	font-size: 20px;
-	color: white;
-	text-align: center;
-}
-
-.WH-C {
-	width: 287px;
-	height: 36px;
-}
-
-.e8_11 {
-	background-color: rgba(34.00000177323818, 34.00000177323818, 34.00000177323818, 1);
-	width: 131px;
-	height: 30px;
-	position: absolute;
-	border-radius: 30px;
-	border: 3px solid rgba(255, 255, 255, 0.5);
-}
-
-.e8_13 {
-	background-color: rgba(34.00000177323818, 34.00000177323818, 34.00000177323818, 1);
-	width: 131px;
-	height: 30px;
-	left: 150px;
-	position: absolute;
-	border-radius: 30px;
-	border: 3px solid rgba(255, 255, 255, 0.5);
-}
-
-.e6_27 {
-	background-color: rgb(173 173 173);
-	width: 287px;
-	height: 79px;
-	position: absolute;
-	left: 19px;
-	top: 635px;
-	border-top-left-radius: 12px;
-	border-top-right-radius: 12px;
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
-}
-
-.e6_28 {
-	color: rgba(0, 0, 0, 1);
-	width: 171px;
-	height: 56px;
-	position: absolute;
-	left: 58px;
-	top: 11.5px;
-	font-family: Arial;
-	text-align: center;
-	font-size: 24px;
-	letter-spacing: 0;
-}
-
-/* Range Button -------------------------------------------------- */
+/*--------------------------------------------------  Range Button -------------------------------------------------- */
 #rangeValue1,
 #rangeValue2,
 #rangeValue3,
@@ -327,6 +334,8 @@ body {
 	border: 4px solid #333;
 	box-shadow: -407px 0 0 400px #ffffff;
 }
+
+/*--------------------------------------------------  DragBox -------------------------------------------------- */
 
 .dragBox {
 	position: absolute;
@@ -363,6 +372,8 @@ input[type="file"] {
 .draging {
 	transform: scale(1.1);
 }
+
+/*--------------------------------------------------  Image and Image containers -------------------------------------------------- */
 
 img {
 	position: absolute;

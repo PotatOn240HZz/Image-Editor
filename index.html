@@ -25,23 +25,27 @@
     <div class=e6_46>
       <span class="dragBox" id="dragBox">
         <span>Drag and Drop Image here</span>
-        <input type="file" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()" id="uploadFile">
+        <input type="file" onclick="this.value=null" onchange="dragNdrop(event)" ondragover="drag()" ondrop="drop()"
+          id="uploadFile">
       </span>
+      <!-- --------------------------------------------------  Start Of Old/New Image Containers -------------------------------------------------- -->
       <div id="video-compare-container">
         <div id="video-clipper">
           <img id="image-video">
         </div>
         <div id="preview" style="position: relative; margin:auto"></div>
       </div>
+      <!-- --------------------------------------------------  End Of Old/New Image Containers -------------------------------------------------- -->
     </div>
+    <!-- --------------------------------------------------  Start Of Tools -------------------------------------------------- -->
     <div class=e10_4>
       <div class=e10_5><span class="e10_2">Tools</span></div>
       <label class="e6_41" for="uploadFile"> Upload Image </label>
       <div class="rotateAndFlip">
         <span>Rotate And Flip</span>
         <div class="rotateAndFlip_C">
-          <div class=rotate id="rotate" onclick="f_rotate()"></div>
-          <div class=rotate-r id="rotate-r" onclick="f_rotate_r()"></div>
+          <div class=rotate-r id="rotate-r" onclick="f_rotate()"></div>
+          <div class=rotate id="rotate" onclick="f_rotate_r()"></div>
           <div class=flip-h id="flip-h" onclick="f_flip_h()"></div>
           <div class=flip-v id="flip-v" onclick="f_flip_v()"></div>
         </div>
@@ -86,11 +90,11 @@
         <span>Resize<span style="color:red"> (1530x746)-(300x300)</span></span>
         <div class="WH-C">
           <div class="e8_11">
-            <textarea id="width" style="resize:none" placeholder="px" maxlength="4"
+            <textarea id="width" style="resize:none" placeholder="px" maxlength="4" onkeypress="return isNumber(event)" onblur="FocusOut(this.value)"
               oninput="widthChange(this.value)"></textarea>
           </div>
           <div class="e8_13">
-            <textarea id="height" style="resize:none" placeholder="px" maxlength="4"
+            <textarea id="height" style="resize:none" placeholder="px" maxlength="4" onkeypress="return isNumber(event)" onblur="FocusOut()"
               oninput="heightChange(this.value)"></textarea>
           </div>
         </div>
@@ -98,6 +102,7 @@
         <span style="margin-left:104.14px">Height</span>
       </div>
     </div>
+    <!-- --------------------------------------------------  End Of Tools -------------------------------------------------- -->
     <canvas id="myCanvas" style="display: none">
     </canvas>
   </div>
