@@ -2,7 +2,8 @@
 
 This project was a personal project that was made in the third year of my bachelor's program at Hashemite University.
 
-In which, I decided to make a website that modifies and exports the result image. Also, it will contain the following features:
+In which, I decided to make a website that modifies and imports/exports images.
+Also, it will contain the following features:
 
  - Rotating An Image
  - Fliping An Image Vertically Or Horizontally
@@ -11,4 +12,6 @@ In which, I decided to make a website that modifies and exports the result image
 
 Attacehed you will find the website:
 
-![ImageEditor.png](Images/ImageEditor.png)
+![ImageEditor.png](Images/ImageEditor.gif)
+
+https://potaton240hzz.github.io/Image-Editor/

@@ -48,6 +48,29 @@ function printRF() {
 	first2Num = Number(first2Str);
 	document.getElementById("height").value = first2Str;
 }
+
+function positionPics() {
+	clippedVideo.style.top = 0;
+	clippedVideo.style.left = 0;
+	document.querySelector("#preview").firstElementChild.style.top = 0;
+	document.querySelector("#preview").firstElementChild.style.left = 0;
+	var rect1 = videoContainer.getBoundingClientRect();
+	var rect2 = clippedVideo.getBoundingClientRect();
+	var rect3 = document.querySelector("#preview").firstElementChild.getBoundingClientRect();
+	if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90) {
+		document.querySelector("#preview").firstElementChild.style.top = (rect1.top - rect3.top) + "px";
+		document.querySelector("#preview").firstElementChild.style.left = (rect1.left - rect3.left) + "px";
+		clippedVideo.style.top = (rect1.top - rect2.top) + "px";
+		clippedVideo.style.left = (rect1.left - rect2.left) + "px";
+	}
+	else {
+		document.querySelector("#preview").firstElementChild.style.top = 0 + "px";
+		document.querySelector("#preview").firstElementChild.style.left = 0 + "px";
+		clippedVideo.style.top = 0 + "px";
+		clippedVideo.style.left = 0 + "px";
+	}
+}
+
 function rotateR(rotate) {
 	/*--------------------------------------------------  applies rotations into images and their containers -------------------------------------------------- */
 	if (Math.abs(rotate) == 360)
@@ -67,6 +90,8 @@ function rotateR(rotate) {
 		document.getElementById('image-video').style.width = pheight;
 		document.getElementById('image1').style.height = pwidth;
 		document.getElementById('image1').style.width = pheight;
+		document.querySelector("#preview").style.height = "" + pheight + "px";
+		document.querySelector("#preview").style.width = "" + pwidth + "px";
 	}
 	else {
 		pheight = uheight;
@@ -75,23 +100,12 @@ function rotateR(rotate) {
 		document.getElementById('image-video').style.width = pwidth;
 		document.getElementById('image1').style.height = pheight;
 		document.getElementById('image1').style.width = pwidth;
+		document.querySelector("#preview").style.height = "" + pheight + "px";
+		document.querySelector("#preview").style.width = "" + pwidth + "px";
 	}
+
 	printRF();
-	var rect1 = videoContainer.getBoundingClientRect();
-	var rect2 = clippedVideo.getBoundingClientRect();
-	var rect3 = document.querySelector("#preview").firstElementChild.getBoundingClientRect();
-	if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90) {
-		document.querySelector("#preview").style.top = (rect1.top - rect3.top) + "px";
-		document.querySelector("#preview").style.left = (rect1.left - rect3.left) + "px";
-		clippedVideo.style.top = (rect1.top - rect2.top) + "px";
-		clippedVideo.style.left = (rect1.left - rect2.left) + "px";
-	}
-	else {
-		document.querySelector("#preview").style.top = 0 + "px";
-		document.querySelector("#preview").style.left = 0 + "px";
-		clippedVideo.style.top = 0 + "px";
-		clippedVideo.style.left = 0 + "px";
-	}
+	positionPics();
 }
 
 function f_rotate() {
@@ -240,37 +254,25 @@ function widthChange(value) {
 		console.log("problem1!!!!!");
 		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		videoClipper.setAttribute("style", "width: 0px; height : " + pheight + "px;");
-		document.getElementById("preview").style.height = pheight;
-		document.getElementById("preview").style.width = pwidth;
+		document.querySelector("#preview").style.height = "" + pheight + "px";
+		document.querySelector("#preview").style.width = "" + pwidth + "px";
 		document.getElementById('image1').style.height = pwidth;
 		document.getElementById('image1').style.width = pheight;
 		document.getElementById('image-video').style.height = pwidth;
 		document.getElementById('image-video').style.width = pheight;
-		rect1 = videoContainer.getBoundingClientRect();
-		rect2 = clippedVideo.getBoundingClientRect();
-		rect3 = document.querySelector("#preview").getBoundingClientRect();
-		document.querySelector("#preview").style.top = (rect1.top - rect3.top) + "px";
-		document.querySelector("#preview").style.left = (rect1.left - rect3.left) + "px";
-		clippedVideo.style.top = (rect1.top - rect2.top) + "px";
-		clippedVideo.style.left = (rect1.left - rect2.left) + "px";
+		positionPics();
 	}
 	else {
 		console.log("problem2!!!!!");
 		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		videoClipper.setAttribute("style", "width: 0px; height : " + pheight + "px;");
-		document.getElementById("preview").style.height = pheight;
-		document.getElementById("preview").style.width = pwidth;
+		document.querySelector("#preview").style.height = "" + pheight + "px";
+		document.querySelector("#preview").style.width = "" + pwidth + "px";
 		document.getElementById('image1').style.height = pheight;
 		document.getElementById('image1').style.width = pwidth;
 		document.getElementById('image-video').style.height = pheight;
 		document.getElementById('image-video').style.width = pwidth;
-		rect1 = videoContainer.getBoundingClientRect();
-		rect2 = clippedVideo.getBoundingClientRect();
-		rect3 = document.querySelector("#preview").getBoundingClientRect();
-		document.querySelector("#preview").style.top = 0 + "px";
-		document.querySelector("#preview").style.left = 0 + "px";
-		clippedVideo.style.top = 0 + "px";
-		clippedVideo.style.left = 0 + "px";
+		positionPics();
 	}
 	uwidth = pwidth;
 	uheight = pheight;
@@ -287,37 +289,32 @@ function heightChange(value) {
 		pheight = 300;
 	else
 		pheight = value;
-	rect1 = videoContainer.getBoundingClientRect();
-	rect2 = clippedVideo.getBoundingClientRect();
-	rect3 = document.querySelector("#preview").firstElementChild.getBoundingClientRect();
 	if (Math.abs(rotate) == 270 || Math.abs(rotate) == 90) {
+		console.log("problem1!!!!!");
 		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		videoClipper.setAttribute("style", "width: 0px; height : " + pheight + "px;");
-		document.getElementById("preview").style.height = pheight;
-		document.getElementById("preview").style.width = pwidth;
+		document.querySelector("#preview").style.height = "" + pheight + "px";
+		document.querySelector("#preview").style.width = "" + pwidth + "px";
 		document.getElementById('image1').style.height = pwidth;
 		document.getElementById('image1').style.width = pheight;
 		document.getElementById('image-video').style.height = pwidth;
 		document.getElementById('image-video').style.width = pheight;
-		document.querySelector("#preview").style.top = (rect1.top - rect3.top) + "px";
-		document.querySelector("#preview").style.left = (rect1.left - rect3.left) + "px";
-		clippedVideo.style.top = (rect1.top - rect2.top) + "px";
-		clippedVideo.style.left = (rect1.left - rect2.left) + "px";
+		positionPics();
 	}
 	else {
+		console.log("problem2!!!!!");
 		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		videoClipper.setAttribute("style", "width: 0px; height : " + pheight + "px;");
-		document.getElementById("preview").style.height = pheight;
-		document.getElementById("preview").style.width = pwidth;
+		document.querySelector("#preview").style.height = "" + pheight + "px";
+		document.querySelector("#preview").style.width = "" + pwidth + "px";
 		document.getElementById('image1').style.height = pheight;
 		document.getElementById('image1').style.width = pwidth;
 		document.getElementById('image-video').style.height = pheight;
 		document.getElementById('image-video').style.width = pwidth;
-		document.querySelector("#preview").style.top = 0 + "px";
-		document.querySelector("#preview").style.left = 0 + "px";
-		clippedVideo.style.top = 0 + "px";
-		clippedVideo.style.left = 0 + "px";
+		positionPics();
 	}
+	uwidth = pwidth;
+	uheight = pheight;
 }
 
 /*--------------------------------------------------  Uploading An Image -------------------------------------------------- */
@@ -326,7 +323,7 @@ var videoContainer,
 	clippedVideo;
 function dragNdrop(event) {
 	var filename = URL.createObjectURL(event.target.files[0]);
-	var preview = document.getElementById('preview');
+	var preview = document.querySelector("#preview");
 	var previewImg = document.createElement("img");
 	previewImg.setAttribute("src", filename);
 	previewImg.setAttribute("id", "image1");
@@ -358,8 +355,8 @@ function dragNdrop(event) {
 		pheight = Iheight;
 		uwidth = pwidth;
 		uheight = pheight;
-		document.getElementById("preview").style.width = "" + pwidth + "px";
-		document.getElementById("preview").style.height = "" + pheight + "px";
+		document.querySelector("#preview").style.width = "" + pwidth + "px";
+		document.querySelector("#preview").style.height = "" + pheight + "px";
 		videoContainer.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		videoClipper.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
 		clippedVideo.setAttribute("style", "width:" + pwidth + "px; height : " + pheight + "px;");
